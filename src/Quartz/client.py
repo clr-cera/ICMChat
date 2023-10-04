@@ -1,22 +1,16 @@
 '''This is the client module'''
 
 try:
-   from Quartz import IPTYPE, NAME
+   from Quartz import NAME
 except ModuleNotFoundError:
    import os, sys
    dir_path = os.path.dirname(os.path.realpath(__file__))
    sys.path.append(f"{dir_path}/..")
+   from Quartz import NAME
    pass
 
 import os, sys
 CONFDIR = os.path.expanduser(f'~/.config/{NAME.lower()}')
-sys.path.append(CONFDIR)
-
-from ClientLib import *
-from ClientLib.clientManagers import *
-from Common import *
-from typing import Callable
-
 
 def ConfigSetup(configpath):
    if (os.path.exists(f"{configpath}")):
@@ -32,7 +26,18 @@ def ConfigSetup(configpath):
    else: os.mkdir(configpath)
    
    ConfigSetup(configpath)
+
 ConfigSetup(CONFDIR)
+sys.path.append(CONFDIR)
+
+from ClientLib import *
+from ClientLib.clientManagers import *
+from Common import *
+from typing import Callable
+
+
+
+
 
 
 def main() -> None:
