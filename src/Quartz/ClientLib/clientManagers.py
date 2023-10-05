@@ -48,8 +48,12 @@ def SendManager(client: clientClass.Client) -> None:
             continue
 
         elif possibleCommand == "/username":
-            client.setUsername(name := message.split()[1])
-            print(f"Now you username is {name}")
+            if len(message.split()) > 1:
+                client.setUsername(name := message.split()[1])
+                print(f"Now you username is {name}.")
+            else:
+                print("You have not inserted a name!")
+                continue
 
         elif possibleCommand == "/color":
             clientInterface.ReceiveColor(client)
