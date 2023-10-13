@@ -37,8 +37,8 @@ def ReceiveUsername(client: clientClass.Client) -> None:
     """This function receives username from user"""
 
     username = input("Type your username:\n")
-    printSent(f"Your username will be {username}!")
-    client.setUsername(username)
+    printSent(f"Your username will be {username.split()[0]}!")
+    client.setUsername(username.split()[0])
     sleep(1)
     print("If you desire to change it later on, you can enter /username USERNAME")
 

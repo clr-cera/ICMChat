@@ -22,10 +22,19 @@ def iter_namespace(ns_pkg):
     return pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
 
 
-discovered_plugins = [
-    importlib.import_module(name)
-    for finder, name, ispkg in iter_namespace(ClientPlugins)
-] + [importlib.import_module(name) for finder, name, ispkg in iter_namespace(plugins)]
+discovered_plugins = [importlib.import_module(name) for finder, name, ispkg in iter_namespace(ClientPlugins)]
+
+local_plugins = [importlib.import_module(name) for finder, name, ispkg in iter_namespace(plugins)]
+
+for localPlugin in local_plugins:
+    isNotInside: bool= True
+
+    for builtinPlugin in discovered_plugins:
+        if builtinPlugin.__name__.split(sep='.')[-1] == localPlugin.__name__.split(sep='.')[-1]:
+            isNotInside = False
+            
+    if isNotInside:
+        discovered_plugins.append(localPlugin)
 
 
 class Client:

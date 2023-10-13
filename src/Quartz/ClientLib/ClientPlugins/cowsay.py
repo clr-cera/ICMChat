@@ -10,10 +10,14 @@ def commands(
 ) -> bool:
     if possibleCommand == "/cowsay":
         message = str(message.split(" ", 1)[1])
-        os.system(f"cowsay {message}")
+
 
         if role == "receiver":
+            print(msgObject)
+            os.system(f"cowsay {message}")
             return True
+
         else:
+            os.system(f"cowsay {message}")
             return False
     return False
